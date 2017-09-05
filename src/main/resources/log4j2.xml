@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" shutdownHook="disable">
+
+	<properties>
+		<property name="base_path">/opt/logs/spring-boot</property>
+		<property name="alter_monitor_path">/opt/logs/spring-boot</property>
+		<property name="pattern_default">%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%c{50}#%M:%L] : %m%n</property>
+		<property name="pattern_alter_monitor">%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{32}.%M:%L %msg%n%xException%n</property>
+	</properties>
+	<Appenders>
+		<Console name="Console">
+			<PatternLayout pattern="${pattern_default}" />
+		</Console>
+		
+	</Appenders>
+	
+	<Loggers>
+		<Logger name="org.jrpc" level="DEBUG"/>
+		<Logger name="com.dfire" level="DEBUG"/>
+		<Logger name="org" level="INFO"/>
+		<Logger name="com.alibaba" level="WARN"/>
+		<Root level="WARN">
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+</Configuration>

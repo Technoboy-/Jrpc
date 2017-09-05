@@ -1,0 +1,2 @@
+fastjson=org.jrpc.serializer.FastJsonSerializer
+protostuff=org.jrpc.serializer.ProtoStuffSerializer
