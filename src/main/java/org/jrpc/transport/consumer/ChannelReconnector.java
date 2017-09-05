@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.jrpc.transport.consumer;
 
 import java.util.concurrent.Executors;
@@ -30,15 +27,18 @@ public class ChannelReconnector {
 	
 	private final Bootstrap bootstrap;
 	
-	private final JAddress address;
+	private JAddress address;
 	
 	private final AtomicBoolean reconnect = new AtomicBoolean(true);
 	
-	public ChannelReconnector(Bootstrap bootstrap, JAddress address){
+	public ChannelReconnector(Bootstrap bootstrap){
 		this.bootstrap = bootstrap;
-		this.address = address;
 	}
 	
+	public void setAddress(JAddress address) {
+		this.address = address;
+	}
+
 	public void setReconnect(boolean reconnect){
 		this.reconnect.set(reconnect);
 	}
@@ -53,11 +53,11 @@ public class ChannelReconnector {
 		scheduler.shutdown();
 	}
 
-	public void startRechduler(){
+	private void startRechduler(){
 		scheduler.scheduleWithFixedDelay(new Runnable() {
 			public void run() {
 				try {
-					if (reconnect.get()) {
+					if (reconnect.get() && !isConnected()) {
 						connect();
 						LOGGER.warn("reconnected...");
 					}

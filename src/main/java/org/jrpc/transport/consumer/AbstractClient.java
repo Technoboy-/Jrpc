@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.jrpc.transport.consumer;
 
 import java.util.Arrays;
@@ -84,14 +81,14 @@ public abstract class AbstractClient implements JClient{
 	}
 	
 	protected JChannelGroup newChannelGroup(Address address){
-		NettyChannelGroup channelGroup = new NettyChannelGroup();
-		JChannel channel = connect(address.getHost(), address.getPort());
-		channelGroup.bind(channel);
+		NettyChannelGroup channelGroup = new NettyChannelGroup(address.getHost(), address.getPort());
+		channelGroup.setChannelReconnector(newChannelReconnector());
+		channelGroup.start();
 		return channelGroup;
 	}
 	
-	protected abstract JChannel connect(String host, int port);
-
+	protected abstract ChannelReconnector newChannelReconnector();
+	
 	private ServiceMeta asServiceMeta(ServiceMetadata metadata) {
 		ServiceMeta meta = new RegisterMeta().getServiceMeta();
 		meta.setGroup(metadata.getGroup());

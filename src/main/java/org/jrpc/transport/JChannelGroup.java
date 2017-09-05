@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.jrpc.transport;
 
 /**
@@ -9,8 +6,6 @@ package org.jrpc.transport;
  */
 public interface JChannelGroup {
 
-	void bind(JChannel channel);
-	
 	JChannel channel();
 	
 	void close();

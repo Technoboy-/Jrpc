@@ -1,14 +1,8 @@
-/**
- * 
- */
 package org.jrpc.transport.consumer;
 
 import org.jrpc.provider.JConfig;
-import org.jrpc.transport.JAddress;
-import org.jrpc.transport.JChannel;
 import org.jrpc.transport.JDecoder;
 import org.jrpc.transport.JEncoder;
-import org.jrpc.transport.NettyChannel;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -29,7 +23,7 @@ public class NettyConnector extends AbstractClient{
 	
 	private final ConsumerProcessor processor = new DefaultConsumerProcessor();
 	
-	private final JConfig config;
+	private JConfig config;
 	
 	public NettyConnector(JConfig config){
 		super(config.getZkServerList());
@@ -55,10 +49,8 @@ public class NettyConnector extends AbstractClient{
 				});
 	}
 	
-	public JChannel connect(String ip, int port) {
-		ChannelReconnector channelReconnector = new ChannelReconnector(bootstrap, new JAddress(ip, port));
-		channelReconnector.start();
-		return NettyChannel.attachChannel(channelReconnector.channel());
+	public ChannelReconnector newChannelReconnector(){
+		return new ChannelReconnector(bootstrap);
 	}
 	
 	public void close() {
