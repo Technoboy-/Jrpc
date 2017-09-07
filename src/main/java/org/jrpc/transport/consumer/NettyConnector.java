@@ -10,6 +10,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
 
 /**
  * @author caoguo(jiwei.guo)
@@ -44,6 +45,7 @@ public class NettyConnector extends AbstractClient{
 						
 						//in
 						pipeline.addLast("decoder", new JDecoder());
+						pipeline.addLast("idleStateHandler", new IdleStateHandler(0, 60, 0));
 						pipeline.addLast("handler", new ConsumerHandler(processor));
 					}
 				});

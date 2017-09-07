@@ -17,6 +17,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.timeout.ReadTimeoutHandler;
 
 /**
  * @author caoguo(jiwei.guo)
@@ -78,6 +79,7 @@ public class JServer {
 		ChannelPipeline pipeline = ch.pipeline();
 		pipeline.addLast("encoder", new JEncoder());
 		pipeline.addLast("decoder", new JDecoder());
+		pipeline.addLast("timeoutHandler", new ReadTimeoutHandler(65));
 		pipeline.addLast("handler", new ProviderHandler(processor));
 	}
 }

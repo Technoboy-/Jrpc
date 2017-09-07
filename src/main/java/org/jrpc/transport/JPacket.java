@@ -66,5 +66,4 @@ public class JPacket implements Serializable{
 	public void setStatus(byte status) {
 		this.status = status;
 	}
-	
 }

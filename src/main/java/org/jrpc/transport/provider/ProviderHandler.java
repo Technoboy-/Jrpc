@@ -3,6 +3,7 @@
  */
 package org.jrpc.transport.provider;
 
+import org.jrpc.common.JConstants;
 import org.jrpc.transport.JPacket;
 import org.jrpc.transport.JRequest;
 import org.jrpc.transport.NettyChannel;
@@ -26,7 +27,9 @@ public class ProviderHandler extends ChannelInboundHandlerAdapter{
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		if(msg instanceof JPacket){
 			JPacket packet = (JPacket)msg;
-			processor.handleRequest(NettyChannel.attachChannel(ctx.channel()), new JRequest(packet.getSign(), packet.getStatus(), packet.getId(), packet.getBody()));
+			if(packet.getSign() != JConstants.HEARTBEAT){
+				processor.handleRequest(NettyChannel.attachChannel(ctx.channel()), new JRequest(packet.getSign(), packet.getStatus(), packet.getId(), packet.getBody()));
+			}
 		} else{
 			//
 		}
