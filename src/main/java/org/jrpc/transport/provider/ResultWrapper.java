@@ -14,16 +14,28 @@ public class ResultWrapper implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Object result;
 	private String error;
+	private Throwable exception;
 	
 	public ResultWrapper(){
 		//
 	}
 	
+	public Throwable getException() {
+		return exception;
+	}
+
+	public void setException(Throwable exception) {
+		this.exception = exception;
+	}
+
 	public ResultWrapper(Object result){
 		this.result = result;
 	}
 	
 	public Object getResult() {
+		if(exception != null) {
+			return exception;
+		}
 		return result;
 	}
 
