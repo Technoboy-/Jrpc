@@ -12,7 +12,7 @@ import org.jrpc.transport.consumer.JClient;
 import org.jrpc.util.StringUtils;
 
 /**
- * @author caoguo(jiwei.guo)
+ * @author tboy(jiwei.guo)
  *
  */
 public class ProxyFactory<I> {

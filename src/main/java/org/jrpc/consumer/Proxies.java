@@ -9,7 +9,7 @@ import static org.jrpc.util.Preconditions.checkArgument;
 
 /**
  * 
- * @author caoguo(jiwei.guo)
+ * @author tboy(jiwei.guo)
  *
  */
 public enum Proxies {
